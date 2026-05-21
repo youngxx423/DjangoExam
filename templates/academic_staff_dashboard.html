@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}教务人员仪表盘{% endblock title %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-5">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="mb-3">教务人员信息</h4>
+                <table class="table table-sm align-middle">
+                    <tbody>
+                    <tr><th>用户名</th><td>{{ academic_staff.username }}</td></tr>
+                    <tr><th>姓名</th><td>{{ academic_staff.name }}</td></tr>
+                    <tr><th>年龄</th><td>{{ academic_staff.age }}</td></tr>
+                    <tr><th>性别</th><td>{% if academic_staff.sex %}男{% else %}女{% endif %}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-7">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="mb-3">管理操作</h4>
+                <div class="row g-3">
+                    <div class="col-sm-6"><a class="btn btn-outline-primary w-100" href="{% url 'manage_academies' %}">管理学院</a></div>
+                    <div class="col-sm-6"><a class="btn btn-outline-primary w-100" href="{% url 'manage_majors' %}">管理专业</a></div>
+                    <div class="col-sm-6"><a class="btn btn-outline-primary w-100" href="{% url 'manage_courses' %}">管理课程</a></div>
+                    <div class="col-sm-6"><a class="btn btn-outline-primary w-100" href="{% url 'manage_students' %}">管理学生</a></div>
+                    <div class="col-sm-6"><a class="btn btn-outline-secondary w-100" href="{% url 'edit_profile' %}">修改个人信息</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

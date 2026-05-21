@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}在线考试系统{% endblock title %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="p-4 bg-white border rounded-3 shadow-sm">
+            <h3 class="mb-1">考试信息</h3>
+            <p class="text-secondary mb-0">查看可参加的考试并开始作答。</p>
+        </div>
+    </div>
+</div>
+{% if error_message %}
+<div class="alert alert-warning">{{ error_message }}</div>
+{% endif %}
+{% if score %}
+<div class="alert alert-success">本次提交成绩：{{ score }} 分</div>
+{% endif %}
+<div class="row g-4">
+    {% if paper %}
+        {% for paper1 in paper %}
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-2">{{ paper1.title }}</h5>
+                    <p class="mb-1"><span class="badge text-bg-light">科目</span> {{ paper1.course }}</p>
+                    <p class="text-secondary mb-3"><i class="bi bi-clock-history me-1"></i>{{ paper1.examtime|date:"Y-m-d H:i" }}</p>
+                    {% if student %}
+                    <a href="{% url 'startExam' %}?sid={{ student.sid }}&title={{ paper1.title }}&subject={{ paper1.course }}"
+                       class="btn btn-primary btn-sm">开始考试</a>
+                    {% else %}
+                    <span class="text-secondary small">请先登录学生账号</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info mb-0">当前暂无可展示的考试数据。</div>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

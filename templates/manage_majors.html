@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}管理专业{% endblock title %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="mb-3">专业列表</h4>
+                <ul class="list-group">
+                    {% for major in majors %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ major.major }}</span>
+                        <a href="{% url 'delete_major' major.id %}" class="btn btn-sm btn-outline-danger">删除</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-secondary">暂无专业</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="mb-3">添加专业</h5>
+                <form method="post" action="{% url 'manage_majors' %}" class="row g-2">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="new_major_name" placeholder="专业名称" required>
+                    </div>
+                    <div class="col-12">
+                        <select class="form-select" name="academy_id" required>
+                            {% for academy in academies %}
+                            <option value="{{ academy.id }}">{{ academy.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">添加专业</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="mb-3">编辑专业</h5>
+                <form method="post" action="{% url 'manage_majors' %}" class="row g-2">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <select class="form-select" name="major_id" required>
+                            {% for major in majors %}
+                            <option value="{{ major.id }}">{{ major.major }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="updated_major_name" placeholder="新的专业名称" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-outline-primary">保存修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

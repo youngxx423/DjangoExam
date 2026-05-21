@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}修改个人信息{% endblock title %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="mb-4">修改个人信息</h4>
+                <form method="post" action="{% url 'edit_profile' %}" class="row g-3">
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                        <label for="username" class="form-label">用户名</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ user.username|default:'' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">姓名</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ user.name|default:'' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="age" class="form-label">年龄</label>
+                        <input type="number" class="form-control" id="age" name="age" value="{{ user.age|default:'' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sex" class="form-label">性别</label>
+                        <select class="form-select" id="sex" name="sex" required>
+                            <option value="male" {% if user.sex == 'male' %}selected{% endif %}>男</option>
+                            <option value="female" {% if user.sex == 'female' %}selected{% endif %}>女</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

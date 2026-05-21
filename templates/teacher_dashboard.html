@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}教师仪表盘{% endblock title %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-5">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="mb-3">教师信息</h4>
+                <table class="table table-sm align-middle">
+                    <tbody>
+                    <tr><th>用户名</th><td>{{ teacher.username }}</td></tr>
+                    <tr><th>姓名</th><td>{{ teacher.name }}</td></tr>
+                    <tr><th>年龄</th><td>{{ teacher.age }}</td></tr>
+                    <tr><th>性别</th><td>{% if teacher.sex %}男{% else %}女{% endif %}</td></tr>
+                    </tbody>
+                </table>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'teacher_profile' %}" class="btn btn-outline-primary">个人信息</a>
+                    <a href="{% url 'create_exam' %}" class="btn btn-primary">发布考试</a>
+                    <a href="{% url 'maintain_papers' %}" class="btn btn-outline-secondary">维护试卷</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-7">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="mb-3">试卷管理</h4>
+                {% if exams %}
+                <div class="list-group">
+                    {% for exam in exams %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="fw-semibold">{{ exam.title }}</div>
+                            <div class="small text-secondary">{{ exam.course }} / {{ exam.major }}</div>
+                        </div>
+                        <a href="{% url 'distribute_exam' exam.id %}" class="btn btn-sm btn-success">发放考试</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-info mb-0">暂无试卷，请先创建考试。</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

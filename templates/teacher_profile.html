@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}教师个人信息{% endblock title %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="mb-3">教师个人信息</h4>
+                <table class="table align-middle mb-0">
+                    <tbody>
+                    <tr><th style="width: 140px;">用户名</th><td>{{ teacher.username }}</td></tr>
+                    <tr><th>姓名</th><td>{{ teacher.name }}</td></tr>
+                    <tr><th>年龄</th><td>{{ teacher.age }}</td></tr>
+                    <tr><th>性别</th><td>{% if teacher.sex %}男{% else %}女{% endif %}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

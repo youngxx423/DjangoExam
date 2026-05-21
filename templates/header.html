@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-semibold brand-pill" href="{% url 'index' %}">
+            <i class="bi bi-mortarboard-fill me-1"></i>在线考试
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="切换导航">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'examinfo' %}">考试记录</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                {% if request.session.username %}
+                    {% if request.session.role == 'student' %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'userfile' %}">个人信息</a></li>
+                    {% elif request.session.role == 'admin' %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_dashboard' %}">管理员控制台</a></li>
+                    {% elif request.session.role == 'academic_staff' %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'academic_staff_dashboard' %}">教务控制台</a></li>
+                    {% elif request.session.role == 'teacher' %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'teacher_dashboard' %}">教师控制台</a></li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarUserMenu" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i>{{ request.session.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserMenu">
+                            {% if request.session.role == 'student' %}
+                            <li><a class="dropdown-item" href="{% url 'userfile' %}">个人信息</a></li>
+                            <li><a class="dropdown-item" href="{% url 'stulogout' %}">退出登录</a></li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="{% url 'logout_view' %}">退出登录</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'studentLogin' %}">学生登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_login' %}">管理员登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'staff_login' %}">教务登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'teacher_login' %}">教师登录</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/">后台</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

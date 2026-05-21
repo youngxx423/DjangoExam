@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}维护试卷{% endblock title %}
+{% block content %}
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <h4 class="mb-3">试卷列表</h4>
+        {% if papers %}
+        <div class="list-group">
+            {% for paper in papers %}
+            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+               href="{% url 'maintain_questions' paper.id %}">
+                <span>{{ paper.title }}</span>
+                <span class="badge text-bg-light">{{ paper.course }}</span>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info mb-0">暂无试卷数据。</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}管理学院{% endblock title %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="mb-3">学院列表</h4>
+                <ul class="list-group">
+                    {% for academy in academies %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ academy.name }}</span>
+                        <a href="{% url 'delete_academy' academy.id %}" class="btn btn-sm btn-outline-danger">删除</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-secondary">暂无学院</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="mb-3">添加学院</h5>
+                <form method="post" action="{% url 'manage_academies' %}" class="row g-2">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="new_academy_name" placeholder="学院名称" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">添加学院</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="mb-3">编辑学院</h5>
+                <form method="post" action="{% url 'manage_academies' %}" class="row g-2">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <select class="form-select" name="academy_id" required>
+                            {% for academy in academies %}
+                            <option value="{{ academy.id }}">{{ academy.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="updated_academy_name" placeholder="新的学院名称" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-outline-primary">保存修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

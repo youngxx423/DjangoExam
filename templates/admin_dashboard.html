@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}管理员管理{% endblock title %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="mb-3">教师列表</h4>
+                <ul class="list-group mb-3">
+                    {% for teacher in teachers %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ teacher.name }}</span>
+                        <a href="{% url 'delete_teacher' teacher.id %}" class="btn btn-sm btn-outline-danger">删除</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-secondary">暂无教师</li>
+                    {% endfor %}
+                </ul>
+                <form method="post" action="{% url 'admin_change' %}" class="vstack gap-2">
+                    {% csrf_token %}
+                    <label class="form-label mb-0">新增教师</label>
+                    <input type="text" class="form-control" name="new_teacher_name" placeholder="教师姓名" required>
+                    <button type="submit" class="btn btn-primary">添加教师</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h4 class="mb-3">教务人员列表</h4>
+                <ul class="list-group mb-3">
+                    {% for staff in academic_staff %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ staff.name }}</span>
+                        <a href="{% url 'delete_staff' staff.id %}" class="btn btn-sm btn-outline-danger">删除</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-secondary">暂无教务人员</li>
+                    {% endfor %}
+                </ul>
+                <form method="post" action="{% url 'admin_change' %}" class="vstack gap-2">
+                    {% csrf_token %}
+                    <label class="form-label mb-0">新增教务人员</label>
+                    <input type="text" class="form-control" name="new_staff_name" placeholder="教务人员姓名" required>
+                    <button type="submit" class="btn btn-primary">添加教务人员</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row g-4 mt-1">
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="mb-3">编辑教师</h5>
+                <form method="post" action="{% url 'admin_change' %}" class="row g-2">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <select class="form-select" name="teacher_id" required>
+                            {% for teacher in teachers %}
+                            <option value="{{ teacher.id }}">{{ teacher.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="updated_teacher_name" placeholder="新的教师名称" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-outline-primary">保存修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="mb-3">编辑教务人员</h5>
+                <form method="post" action="{% url 'admin_change' %}" class="row g-2">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <select class="form-select" name="staff_id" required>
+                            {% for staff in academic_staff %}
+                            <option value="{{ staff.id }}">{{ staff.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="updated_staff_name" placeholder="新的教务人员名称" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-outline-primary">保存修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

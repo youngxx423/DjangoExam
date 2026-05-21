@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}管理员登录{% endblock title %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-lg-5">
+                <h4 class="mb-4">管理员登录</h4>
+                {% if message %}
+                <div class="alert alert-warning" role="alert">{{ message }}</div>
+                {% endif %}
+                <form method="post" action="{% url 'admin_login' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">管理员账号</label>
+                        <input type="text" class="form-control" name="username" placeholder="输入管理员用户名" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label">密码</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="输入密码" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">登录</button>
+                </form>
+                <div class="text-center mt-3 text-secondary small">用于系统管理与账户维护</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
