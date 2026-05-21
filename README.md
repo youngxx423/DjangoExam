@@ -11,8 +11,8 @@
 
 ## 技术栈
 
-- Python 3.x
-- Django 3.2.x
+- Python 3.9
+- Django 4.0
 - MySQL
 - django-simpleui（Django Admin 美化）
 
