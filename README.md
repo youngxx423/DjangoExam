@@ -1,6 +1,6 @@
 # DjangoExam 在线考试管理系统
 
-基于 Django 3.9 的课程考试系统，包含学生端考试、教师组卷、教务管理与管理员管理功能。
+基于 Django 4.0 的课程考试系统，包含学生端考试、教师组卷、教务管理与管理员管理功能。
 
 ## 功能概览
 
@@ -60,7 +60,7 @@ python -m venv .venv
 # macOS/Linux:
 source .venv/bin/activate
 
-pip install django==3.2.19 django-simpleui mysqlclient
+pip install django==4.0.* django-simpleui mysqlclient
 ```
 
 3. 配置数据库（`DjangoExam/settings.py`）
